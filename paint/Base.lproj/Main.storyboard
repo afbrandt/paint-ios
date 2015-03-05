@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sfP-d4-aAd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fo5-84-T1l">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
     </dependencies>
@@ -20,6 +20,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JX7-j3-fHj" appends="YES" id="vBX-Nv-qqg"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,6 +31,7 @@
                             <outletCollection property="gestureRecognizers" destination="Mwq-y8-0mA" appends="YES" id="lJ2-Sn-Hln"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="bEz-er-kOB"/>
                     <connections>
                         <outlet property="canvas" destination="LZN-L2-JMd" id="53o-iM-fS6"/>
                     </connections>
@@ -38,8 +42,31 @@
                         <action selector="handlePan:" destination="sfP-d4-aAd" id="SXb-Ll-1c5"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer id="JX7-j3-fHj">
+                    <connections>
+                        <action selector="handleTap:" destination="sfP-d4-aAd" id="xey-2i-YRO"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="387" y="738"/>
+            <point key="canvasLocation" x="2011" y="738"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4Ct-wG-Pkk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fo5-84-T1l" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZHV-4U-Qgx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="sfP-d4-aAd" kind="relationship" relationship="rootViewController" id="HvL-OD-uuw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IOK-sq-pP9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1199" y="738"/>
         </scene>
     </scenes>
 </document>
