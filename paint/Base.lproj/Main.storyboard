@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
     </dependencies>
     <scenes>
-        <!--Paint View Controller-->
+        <!--Paint-->
         <scene sceneID="Vhh-ux-ER0">
             <objects>
                 <viewController id="sfP-d4-aAd" customClass="PaintViewController" customModule="paint" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,7 +31,7 @@
                             <outletCollection property="gestureRecognizers" destination="Mwq-y8-0mA" appends="YES" id="lJ2-Sn-Hln"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="bEz-er-kOB"/>
+                    <navigationItem key="navigationItem" title="Paint" id="bEz-er-kOB"/>
                     <connections>
                         <outlet property="canvas" destination="LZN-L2-JMd" id="53o-iM-fS6"/>
                     </connections>
