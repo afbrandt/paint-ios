@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7515.2" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sfP-d4-aAd">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7512"/>
+    </dependencies>
+    <scenes>
+        <!--Paint View Controller-->
+        <scene sceneID="Vhh-ux-ER0">
+            <objects>
+                <viewController id="sfP-d4-aAd" customClass="PaintViewController" customModule="paint" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZQH-aD-CRB"/>
+                        <viewControllerLayoutGuide type="bottom" id="TaH-YL-4GM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="akf-hA-wOx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZN-L2-JMd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Mwq-y8-0mA" appends="YES" id="lJ2-Sn-Hln"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="canvas" destination="LZN-L2-JMd" id="53o-iM-fS6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Klo-6Z-M6a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Mwq-y8-0mA">
+                    <connections>
+                        <action selector="handlePan:" destination="sfP-d4-aAd" id="SXb-Ll-1c5"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="387" y="738"/>
+        </scene>
+    </scenes>
+</document>
