@@ -10,10 +10,12 @@ import UIKit
 
 class CanvasView: UIView {
     var color: UIColor!
+    var newPath: Bool
     
-    init(frame: CGRect, color: UIColor) {
+    init(frame: CGRect, color: UIColor, newPath: Bool) {
+        self.newPath = newPath
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = color
         self.color = color
     }
 
@@ -23,8 +25,26 @@ class CanvasView: UIView {
     
     override func drawRect(rect:CGRect) {
         var context = UIGraphicsGetCurrentContext()
-        CGContextAddEllipseInRect(context, rect)
+        
+        // This with draw unjoined circles
+        //
+        // CGContextAddEllipseInRect(context, rect)
+        // CGContextSetFillColor(context, CGColorGetComponents(self.color.CGColor))
+        // CGContextFillPath(context)
+        //
+        
+        if (self.newPath) {
+            CGContextBeginPath(context)
+            CGContextMoveToPoint(context, rect.origin.x, rect.origin.y)
+        }
+        
+        CGContextSetStrokeColorWithColor(context, self.color.CGColor)
         CGContextSetFillColor(context, CGColorGetComponents(self.color.CGColor))
-        CGContextFillPath(context)
+        //CGContextAddRect(context, rect)
+        //CGContextAddPath(context, CGPathCreateWithRect(rect, nil))
+        CGContextSetLineWidth(context, rect.width)
+        CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y)
+        //CGContextDrawPath(context, kCGPathFillStroke)
+        //CGContextFillPath(context)
     }
 }
