@@ -16,7 +16,7 @@ struct Stroke {
 }
 
 class CanvasView: UIView {
-    var color: UIColor = UIColor.blackColor()
+    var color: UIColor = UIColor.blueColor()
     var thickness: CGFloat = 2.0
     var lastPoint: CGPoint = CGPoint(x: 0, y: 0)
     var currentPoint: CGPoint = CGPoint(x: 0, y: 0)

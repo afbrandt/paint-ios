@@ -11,7 +11,7 @@ import UIKit
 class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var canvas: CanvasView!
-    var currentColor: UIColor = UIColor.blackColor()
+    var currentColor: UIColor = UIColor.blueColor()
     var currentSize: CGFloat = 5.0
     let brushSizes = ["Small", "Medium", "Large"]
     var picker: UIPickerView!
@@ -72,6 +72,9 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
         var touch = recognizer.locationInView(canvas)
         //println("x: \(touch.x) y: \(touch.y)")
         self.paint(touch, end: true)
+        //hacky way to draw tap and make sure its isolated
+        self.paint(CGPointMake(touch.x, touch.y+1), end:false)
+        self.paint(CGPointZero, end: false)
     }
     
     func paint(loc: CGPoint, end: Bool) {
@@ -84,7 +87,7 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
         if end {
             canvas.update(CGPoint(x:0,y:0))
         }
-        println("x: \(loc.x) y: \(loc.y)")
+        //println("x: \(loc.x) y: \(loc.y)")
         canvas.update(loc)
     }
     
@@ -104,9 +107,11 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
-    func setSize() {
-        canvas.bringSubviewToFront(self.picker)
-        self.picker.hidden = false
+    func setSize() {        
+        if let items = self.toolbarItems as? [UIBarButtonItem] {
+                items[2].title = self.picker.hidden ? "Dismiss" : "Brush Size"
+        }
+        self.picker.hidden = !self.picker.hidden
     }
     
     //pragma MARK: - FCColorPickerViewControllerDelegate methods
