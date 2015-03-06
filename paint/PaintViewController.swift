@@ -11,11 +11,10 @@ import UIKit
 class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var canvas: CanvasView!
-    var currentColor: UIColor = UIColor.redColor()
+    var currentColor: UIColor = UIColor.blackColor()
     var currentSize: CGFloat = 5.0
     let brushSizes = ["Small", "Medium", "Large"]
     var picker: UIPickerView!
-    var strokes: [CGPoint] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +100,6 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
         var picker = FCColorPickerViewController.colorPicker()
         picker.color = self.currentColor
         picker.delegate = self
-        
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
@@ -114,6 +112,7 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
     
     func colorPickerViewController(colorPicker: FCColorPickerViewController!, didSelectColor color: UIColor!) {
         self.currentColor = color
+        canvas.color = self.currentColor
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -140,13 +139,13 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch (row) {
             case 0:
-                self.currentSize = 5.0
+                canvas.thickness = 2.0
                 break;
             case 1:
-                self.currentSize = 12.0
+                canvas.thickness = 3.5
                 break;
             case 2:
-                self.currentSize = 20.0
+                canvas.thickness = 6.0
                 break;
             default:
                 break;
