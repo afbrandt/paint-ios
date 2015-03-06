@@ -89,11 +89,12 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
     }
     
     func clearCanvas() {
-        for obj in canvas.subviews {
-            if let paint = obj as? CanvasView {
-                paint.removeFromSuperview()
-            }
-        }
+//        for obj in canvas.subviews {
+//            if let paint = obj as? CanvasView {
+//                paint.removeFromSuperview()
+//            }
+//        }
+        canvas.clearContext = true
     }
     
     func setColor() {

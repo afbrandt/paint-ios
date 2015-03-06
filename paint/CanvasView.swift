@@ -21,6 +21,8 @@ class CanvasView: UIView {
     var lastPoint: CGPoint = CGPoint(x: 0, y: 0)
     var currentPoint: CGPoint = CGPoint(x: 0, y: 0)
     
+    var clearContext: Bool = false
+    
     var strokes: [Stroke] = []
     
     init(frame: CGRect, color: UIColor, newPath: Bool) {
@@ -57,6 +59,10 @@ class CanvasView: UIView {
     }
     
     func refreshView() {
+        if clearContext {
+            self.strokes.removeAll(keepCapacity: false)
+            self.clearContext = false
+        }
         self.setNeedsDisplay()
     }
     
