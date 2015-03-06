@@ -9,42 +9,50 @@
 import UIKit
 
 class CanvasView: UIView {
-    var color: UIColor!
-    var newPath: Bool
+    var color: UIColor = UIColor.blackColor()
+    var lastPoint: CGPoint = CGPoint(x: 0, y: 0)
+    var currentPoint: CGPoint = CGPoint(x: 0, y: 0)
+    var strokes: [CGPoint] = []
     
     init(frame: CGRect, color: UIColor, newPath: Bool) {
-        self.newPath = newPath
         super.init(frame: frame)
-        self.backgroundColor = color
-        self.color = color
+        //self.backgroundColor = color
+        //self.color = color
     }
 
     required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        
+        var link = CADisplayLink(target: self, selector: Selector("refreshView"))
+        link.frameInterval = 1
+        link.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
     }
     
     override func drawRect(rect:CGRect) {
         var context = UIGraphicsGetCurrentContext()
         
-        // This with draw unjoined circles
+        CGContextSetStrokeColorWithColor(context, self.color.CGColor)
+        var count = UInt(strokes.count)
+        CGContextAddLines(context, strokes, count)
+        CGContextStrokePath(context)
+        
+        // Q&D - This used to draw unjoined circles
         //
         // CGContextAddEllipseInRect(context, rect)
         // CGContextSetFillColor(context, CGColorGetComponents(self.color.CGColor))
         // CGContextFillPath(context)
-        //
-        
-        if (self.newPath) {
-            CGContextBeginPath(context)
-            CGContextMoveToPoint(context, rect.origin.x, rect.origin.y)
+    }
+    
+    func refreshView() {
+        self.setNeedsDisplay()
+    }
+    
+    func update(point:CGPoint) {
+        self.lastPoint = self.currentPoint
+        self.currentPoint = point
+        if (self.lastPoint != CGPointZero && self.currentPoint != CGPointZero) {
+            self.strokes.append(self.lastPoint)
+            self.strokes.append(self.currentPoint)
         }
-        
-        CGContextSetStrokeColorWithColor(context, self.color.CGColor)
-        CGContextSetFillColor(context, CGColorGetComponents(self.color.CGColor))
-        //CGContextAddRect(context, rect)
-        //CGContextAddPath(context, CGPathCreateWithRect(rect, nil))
-        CGContextSetLineWidth(context, rect.width)
-        CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y)
-        //CGContextDrawPath(context, kCGPathFillStroke)
-        //CGContextFillPath(context)
     }
 }

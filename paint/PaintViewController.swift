@@ -10,7 +10,7 @@ import UIKit
 
 class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var canvas: UIView!
+    @IBOutlet weak var canvas: CanvasView!
     var currentColor: UIColor = UIColor.redColor()
     var currentSize: CGFloat = 5.0
     let brushSizes = ["Small", "Medium", "Large"]
@@ -55,12 +55,17 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
         var touch = recognizer.locationInView(canvas)
         //println("x: \(touch.x) y: \(touch.y)")
         
-        if recognizer.state == .Began {
-            self.paint(touch, end:true)
-        } else {
-            self.paint(touch, end:false)
+        switch (recognizer.state) {
+            case .Ended:
+                self.paint(touch, end:true)
+                break;
+            case .Began:
+                self.paint(touch, end:true)
+                break;
+            default:
+                self.paint(touch, end:false)
+                break;
         }
-        
     }
     
     @IBAction func handleTap(recognizer: UITapGestureRecognizer) {
@@ -72,10 +77,16 @@ class PaintViewController: UIViewController, FCColorPickerViewControllerDelegate
     
     func paint(loc: CGPoint, end: Bool) {
         //make CGRect for CanvasView frame
-        var panRect = CGRectMake(loc.x - self.currentSize, loc.y - self.currentSize, 2*self.currentSize, 2*self.currentSize)
-        var paint = CanvasView(frame:panRect, color:self.currentColor, newPath: end)
+        //var panRect = CGRectMake(loc.x - self.currentSize, loc.y - self.currentSize, 2*self.currentSize, 2*self.currentSize)
+        //var paint = CanvasView(frame:panRect, color:self.currentColor, newPath: end)
         //add to view
-        canvas.addSubview(paint)
+        //canvas.addSubview(paint)
+        
+        if end {
+            canvas.update(CGPoint(x:0,y:0))
+        }
+        println("x: \(loc.x) y: \(loc.y)")
+        canvas.update(loc)
     }
     
     func clearCanvas() {
